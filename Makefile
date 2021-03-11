@@ -2,9 +2,9 @@ TARGET = main.out
 HDRS_DIR = project/include
 
 SRCS = \
-       main.c \
-       file_creation.c \
-	   form_sorter.c
+       project/source/main.c \
+       project/source/file_creation.c \
+	   project/source/form_sorter.c
 
 .PHONY: all clean
 
