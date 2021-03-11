@@ -12,10 +12,8 @@ addons:
       - make
 script:
   - gcc -Wall -Wextra -Werror -I project/include  -o main.out project/source/main.c project/source/file_creation.c project/source/form_sorter.c
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --error-exitcode=1 --leak-check=full --show-leak-kinds=all ./main.out ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --error-exitcode=1 --enable=warning,performance,information,style project *.c *.h ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then g++ --version ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --version ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --version ; fi
 
 after_success:
