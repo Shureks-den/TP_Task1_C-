@@ -98,7 +98,7 @@ int print_everything(main_list_t* head) {
         q = q->next_list;
         printf("----------------------\n");
     }
-    return 0;
+    return NO_ERROR;
 }
 
 int print_info(form_list_t get_data) {
@@ -120,5 +120,5 @@ int clear_everything(main_list_t* head) {
         free(clean_struct);
         clean_struct = head;
     }
-    return 0;
+    return NO_ERROR;
 }

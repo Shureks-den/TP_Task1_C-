@@ -3,8 +3,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        puts("Wrong number of arguments");
-        return -1;
+        return WRONG_NUM_OF_ARG;
     }
     FILE* database = NULL;
 
@@ -24,8 +23,10 @@ int main(int argc, char* argv[]) {
     }
 
     if (database != NULL) {
-        fclose(database);
+        if (fclose(database)) {
+            return FAILED_FILE_CLOSING;
+        }
     }
 
-    return 0;
+    return NO_ERROR;
 }
