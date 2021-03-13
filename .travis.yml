@@ -50,7 +50,7 @@ script:
   - cd build
   - cmake .. #-DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU
   - make
-  - ctest < test_data.txt --output-on-failure
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ctest < test_data.txt ; fi
+  - ctest < ../test_data.txt --output-on-failure
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ctest < ../test_data.txt ; fi
   - cd ..
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --enable=all --error-exitcode=1 -I include --suppress=missingIncludeSystem ./test ./src ./include/*.h --check-config ; fi
