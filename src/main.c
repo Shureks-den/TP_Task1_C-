@@ -27,9 +27,15 @@ int main(int argc, char* argv[]) {
     if (strcmp(argv[1], "-r") == 0) {
         main_list_t* structure = NULL;
         structure = read_from_database(argv[2]);
-        print_everything(structure);
-        clear_everything(structure);
+        error_code = print_everything(structure);
+        if (!error_code) {
+            return error_code;
+        }
+        error_code = clear_everything(structure);
+        if (!error_code) {
+            return error_code;
+        }
     }
-
+    
     return error_code;
 }
