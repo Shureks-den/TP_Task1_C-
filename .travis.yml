@@ -1,25 +1,32 @@
-language: cpp 
+dist: trusty
+sudo: required
+
+language: c
+
 os:
-  - linux
-  - osx
-complier:
-  - gcc 
-  
+    - linux
+
+compiler:
+    - gcc
+
 addons:
-  apt:
-    packages:
-      - valgrind
-      - cppcheck
-      - cmake
-      - clang
-  before_script:
+    apt:
+        packages:
+            - valgrind
+            - cppcheck
+            - cmake
+            - clang
+before_script:
     - sudo pip install cpplint
 script:
-  - gcc -Wall -Wextra -Werror -I project/include  -o main.out project/source/main.c project/source/file_creation.c project/source/form_sorter.c
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --error-exitcode=1 --enable=warning,performance,information,style  *.c *.h ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then g++ --version ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --version ; fi
-
+    - ctest --output-on-failure
+    - cd "${TRAVIS_BUILD_DIR}"
+    - cppcheck --std=c99 --enable=all -inconclusive src/*.c
+    - cppcheck --std=c++11 --enable=all -inconclusive test/*.cpp
+    - cpplint --filter=-legal/copyright,-readability/casting test/*.cpp
+    - cpplint --filter=-legal/copyright,-readability/casting include/*.h
+    - cmake -DCMAKE_BUILD_TYPE=Debug -DWRAP_VALGRIND=ON .
+    - make
 after_success:
-  - cd "${TRAVIS_BUILD_DIR}"
-  - bash <(curl -s https://codecov.io/bash) -f "TP_Task1_C-/*"
+    - cd "${TRAVIS_BUILD_DIR}"
+    - bash <(curl -s https://codecov.io/bash) -f "TP_Task1_C-/src/*"
