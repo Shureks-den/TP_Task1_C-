@@ -5,7 +5,7 @@
 
 TEST(Test_algorithm, comparison) {
     
-    std::ifstream t("../build/test/got.txt");
+    std::ifstream t("got.txt");
     std::string got;
     std::string buff;
     while(t) {
@@ -14,7 +14,7 @@ TEST(Test_algorithm, comparison) {
     }
 
 
-    std::ifstream t2("../expected.txt");
+    std::ifstream t2("../../expected.txt");
     std::string expected;
     while(t2) {
         getline(t2, buff);
