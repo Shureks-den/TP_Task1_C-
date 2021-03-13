@@ -13,6 +13,5 @@ TEST(Test_structure, file_read) {
     freopen("got.txt", "w", stdout);
     ASSERT_EQ(print_everything(head), 0);
     clear_everything(head);
-    freopen("log.txt", "w", stdout);
     fclose(stdout);
 }
