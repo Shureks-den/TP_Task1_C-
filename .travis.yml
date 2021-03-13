@@ -22,7 +22,6 @@ addons:
       - cppcheck
       - make
       - cmake
-      - python2.7
 
 
 env:
