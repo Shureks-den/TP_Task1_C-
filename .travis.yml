@@ -4,17 +4,22 @@ os:
   - osx
 complier:
   - gcc 
+  
 addons:
   apt:
     packages:
       - valgrind
       - cppcheck
-      - make
+      - cmake
+      - clang
+  before_script:
+    - sudo pip install cpplint
 script:
   - gcc -Wall -Wextra -Werror -I project/include  -o main.out project/source/main.c project/source/file_creation.c project/source/form_sorter.c
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --error-exitcode=1 --enable=warning,performance,information,style project *.c *.h ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --error-exitcode=1 --enable=warning,performance,information,style  *.c *.h ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then g++ --version ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --version ; fi
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - cd "${TRAVIS_BUILD_DIR}"
+  - bash <(curl -s https://codecov.io/bash) -f "TP_Task1_C-/*"
