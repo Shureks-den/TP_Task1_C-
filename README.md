@@ -1,1 +1,1 @@
-Some useles information for now
+Some useless information for now
