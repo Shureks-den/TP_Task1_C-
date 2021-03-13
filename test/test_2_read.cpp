@@ -10,8 +10,8 @@ TEST(Test_structure, file_read) {
     char filename[] = "test.bin";
     head = read_from_database(filename);
     ASSERT_NE(head, nullptr);
-    freopen("log.txt", "w", stdout);
-    //freopen("/dev/tty","w",stdout);
+    freopen("got.txt", "w", stdout);
     ASSERT_EQ(print_everything(head), 0);
     clear_everything(head);
+    fclose(stdout);
 }
