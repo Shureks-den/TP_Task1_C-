@@ -31,8 +31,6 @@ script:
   - cmake ..
   - make
   - ctest < ../test_data.txt --output-on-failure
-  - ./prog -r
-  - ./prog -c a.bin
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ctest < ../test_data.txt ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ./prog -c a.bin 6 < ../test_data.txt; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ./prog -r a.bin; fi
