@@ -5,11 +5,9 @@ sudo:     required  # используем Virtual Machine (а не Docker conta
 language: c      
 
 os:
-  # будем прогонять CI и на Linux, и на Mac OS X...
   - linux
 
 compiler:
-  # ... и с помощью GCC, и Clang
   - gcc
 
 addons:
