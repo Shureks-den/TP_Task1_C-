@@ -37,6 +37,12 @@ TEST(Test_structure, empty_file_read) {
     ASSERT_EQ(head, nullptr);
 }
 
+TEST(Test_strutuce, initialise_with_NULL) {
+    main_list_t* head = nullptr;
+    head = initialise_main_list(NULL);
+    ASSERT_EQ(head, nullptr);
+}
+
 TEST(Test_structure, file_read) {
     main_list_t* head = nullptr;
     char filename[] = "test.bin";
