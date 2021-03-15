@@ -2,7 +2,7 @@
 #include <stdbool.h>
 
 main_list_t* add_elem_to_main_structure(form_t* element, main_list_t* head) {
-    if (element == NULL) {
+    if (element == NULL || head == NULL) {
         return NULL;
     }
     main_list_t* current = head;
@@ -50,6 +50,9 @@ main_list_t* initialise_main_list(form_t* element) {
 }
 
 form_list_t* insert_form(form_list_t* head, form_t* element) {
+    if (element == NULL || head == NULL) {
+        return NULL;
+    }
     form_list_t* current = head;
     form_list_t* pre_current = current;
 
@@ -70,7 +73,10 @@ form_list_t* insert_form(form_list_t* head, form_t* element) {
     return head;
 }
 
-form_list_t* copy_data(form_list_t* pre_current, form_list_t* current, form_t* element) {  // вроде работает
+form_list_t* copy_data(form_list_t* pre_current, form_list_t* current, form_t* element) {
+    if(element == NULL) {  // current или pre_current могут быть NULL
+        return NULL;
+    }
     form_list_t* new_elem = (form_list_t*)malloc(sizeof(form_list_t));
 
     if (pre_current != NULL) {
@@ -79,12 +85,16 @@ form_list_t* copy_data(form_list_t* pre_current, form_list_t* current, form_t* e
     new_elem->next = current;
 
     new_elem->data.num = element->num;
-    snprintf(new_elem->data.place, sizeof(element->place), "%s", element->place);
-    snprintf(new_elem->data.responsible, sizeof(element->responsible), "%s", element->responsible);
+    if (snprintf(new_elem->data.place, sizeof(element->place), "%s", element->place) < 0) {
+        return NULL;
+    }
+    if (snprintf(new_elem->data.responsible, sizeof(element->responsible), "%s", element->responsible) < 0) {
+        return NULL;
+    }
     return new_elem;
 }
 
-int print_everything(main_list_t* head) {
+int print_form_structure(main_list_t* head) {
     main_list_t* q = head;
     printf("----------------------\n");
     while (q != NULL) {

@@ -11,7 +11,7 @@ TEST(Test_structure, file_read) {
     head = read_from_database(filename);
     ASSERT_NE(head, nullptr);
     freopen("got.txt", "w", stdout);
-    ASSERT_EQ(print_everything(head), 0);
+    ASSERT_EQ(print_form_structure(head), 0);
     clear_everything(head);
     fclose(stdout);
 }

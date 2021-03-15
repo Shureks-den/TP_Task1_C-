@@ -8,7 +8,9 @@ enum error_list {
     FAILED_FILE_CLOSING = 2,
     FAILED_MEMORY_ALLOCATION = 3,
     FAILED_MEMORY_CLEAR = 4,
-    WRONG_NUM_OF_ARG = 5
+    WRONG_NUM_OF_ARG = 5,
+    SCANF_ERROR = 6,
+    FREAD_ERROR = 7
 };
 
 typedef struct form {
@@ -29,6 +31,5 @@ struct main_list {
     main_list_t* next_list;
 };
 
-int create_new_database(const char filename[], const int num);  // создаем новый файл
-int add_to_existing_data_base(const char filename[], const int num);  // дополняем существующий файл
+int write_to_database(const char filename[], const char action[], const size_t num);  // создаем новый файл
 main_list_t* read_from_database(const char filename[]);  // формируем структуру

@@ -8,11 +8,11 @@ extern "C" {
 
 TEST(File_test, create) {
     char filename[] = "test.bin";
-    ASSERT_EQ(create_new_database(filename, 3), 0);
+    ASSERT_EQ(write_to_database(filename,"-c", 3), 0);
 }
 
 TEST(File_test, add) {
     char filename[] = "test.bin";
-    ASSERT_EQ(add_to_existing_data_base(filename, 3), 0);
+    ASSERT_EQ(write_to_database(filename, "-a", 3), 0);
 }
 
