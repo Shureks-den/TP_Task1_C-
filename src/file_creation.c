@@ -13,20 +13,20 @@ int write_to_database(const char filename[], const char action[], const size_t n
 
     if (database == NULL) {
         puts("File not found");
-        exit(FAILED_FILE_OPENNING);
+        return(FAILED_FILE_OPENNING);
     }
 
     form_t* info = calloc(1, sizeof(form_t));
     if (info == NULL) {
         puts("Memory error");
-        exit(FAILED_MEMORY_ALLOCATION);
+        return(FAILED_MEMORY_ALLOCATION);
     }
 
     size_t i = 0;
     while (i < num) {
         if (fscanf(stdin, "%10lu%30s%30s", &info->num, info->place, info->responsible) < 0) {
-            puts("Error full getting data");
-            exit(SCANF_ERROR);
+            puts("Error getting full data");
+            return(SCANF_ERROR);
         }
         if (strlen(info->place) && strlen(info->responsible)) {  //  неправильные (неполные данные) не запишутся
             fwrite(info, sizeof(form_t), 1, database);

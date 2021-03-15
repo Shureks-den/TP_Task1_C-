@@ -5,6 +5,12 @@ extern "C" {
     #include "form/form_sorter.h"
 }
 
+TEST(Test_structure, wrong_file_read) {
+    char filename[] = "nottest.bin";
+    ASSERT_EQ(write_to_database(filename, "-a", 3), SCANF_ERROR);
+}
+
+
 TEST(Test_structure, file_read) {
     main_list_t* head = nullptr;
     char filename[] = "test.bin";
