@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(Homework1)
 
-set(CMAKE_C_FLAGS "-ftest-coverage" )
+set(CMAKE_C_FLAGS "--coverage")
 
 set(CMAKE_C_STANDARD 11)
 
