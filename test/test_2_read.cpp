@@ -21,6 +21,19 @@ TEST(Test_print, null_head) {
     ASSERT_EQ(print_form_structure(head), PRINT_ERROR);
 }
 
+TEST(Test_add, null_element) {
+    form_t* element = nullptr;
+    main_list_t* head = nullptr;
+    ASSERT_EQ(add_elem_to_main_structure(element, head), nullptr);
+}
+
+TEST(Test_structure, empty_file_read) {
+    main_list_t* head = nullptr;
+    char filename[] = "nottest.bin";
+    head = read_from_database(filename);
+    ASSERT_EQ(head, nullptr);
+}
+
 TEST(Test_structure, file_read) {
     main_list_t* head = nullptr;
     char filename[] = "test.bin";

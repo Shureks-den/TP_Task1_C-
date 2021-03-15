@@ -52,18 +52,18 @@ main_list_t* read_from_database(const char filename[]) {
 
     if (database == NULL) {
         puts("File not found");
-        exit(FAILED_FILE_OPENNING);
+        return NULL;
     }
 
     form_t* get_data = malloc(sizeof(form_t));
     if (get_data == NULL) {
         puts("Memory error");
-        exit(FAILED_MEMORY_ALLOCATION);
+        return NULL;
     }
 
     if (fread(get_data, sizeof(form_t), 1, database) == 0) {
         puts("FILE IS EMPTY");
-        exit(FREAD_ERROR);
+        return NULL;
     }
 
     main_list_t* head = NULL;
@@ -75,7 +75,7 @@ main_list_t* read_from_database(const char filename[]) {
 
     free(get_data);
     if (fclose(database)) {
-        exit(FAILED_FILE_CLOSING);
+        return NULL;
     }
     return head;
 }
