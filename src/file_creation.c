@@ -6,7 +6,7 @@ int write_to_database(const char filename[], const char action[], const size_t n
     if (strcmp(action, "-c") == 0) {
         database = fopen(filename, "wb");
     }
-    
+
     if (strcmp(action, "-a") == 0) {
         database = fopen(filename, "ab");
     }
@@ -16,7 +16,7 @@ int write_to_database(const char filename[], const char action[], const size_t n
         exit(FAILED_FILE_OPENNING);
     }
 
-    form_t* info = (form_t*)calloc(1, sizeof(form_t));
+    form_t* info = calloc(1, sizeof(form_t));
     if (info == NULL) {
         puts("Memory error");
         exit(FAILED_MEMORY_ALLOCATION);
@@ -33,8 +33,8 @@ int write_to_database(const char filename[], const char action[], const size_t n
         } else {
             puts("Some data was incomplete and didn't write to a file");
         }
-        strcpy(info->place, "");
-        strcpy(info->responsible, "");
+        snprintf(info->place, sizeof(info->place), "%s", "");
+        snprintf(info->responsible, sizeof(info->place), "%s", "");
         i++;
     }
 
@@ -55,7 +55,7 @@ main_list_t* read_from_database(const char filename[]) {
         exit(FAILED_FILE_OPENNING);
     }
 
-    form_t* get_data = (form_t*)malloc(sizeof(form_t));
+    form_t* get_data = malloc(sizeof(form_t));
     if (get_data == NULL) {
         puts("Memory error");
         exit(FAILED_MEMORY_ALLOCATION);
@@ -65,7 +65,7 @@ main_list_t* read_from_database(const char filename[]) {
         puts("FILE IS EMPTY");
         exit(FREAD_ERROR);
     }
-    
+
     main_list_t* head = NULL;
     head = initialise_main_list(get_data);
 

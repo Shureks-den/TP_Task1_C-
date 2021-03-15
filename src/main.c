@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
         int num = atoi(argv[3]);
         error_code = write_to_database(argv[2], argv[1], num);
         if (error_code) {
-            return error_code; 
+            return error_code;
         }
     }
 
@@ -33,6 +33,6 @@ int main(int argc, char* argv[]) {
             return error_code;
         }
     }
-    
+
     return error_code;
 }

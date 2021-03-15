@@ -2,8 +2,7 @@
 dist:     trusty    # используем Ubuntu 14.04 Trusty Tahr (а не 12.02 Precise Pangolin)
 sudo:     required  # используем Virtual Machine (а не Docker container)
 
-language: c      # на практике разницы между специфичным для C++ окружением
-# и, скажем, python -- никакой. Но пусть будет cpp.
+language: c      
 
 os:
   # будем прогонять CI и на Linux, и на Mac OS X...
@@ -31,19 +30,6 @@ env:
   - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
   - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
 
-matrix:
-  exclude:
-    # вручную исключим ненужные элементы из матрицы сборки:
-    - os:       osx
-      compiler: gcc
-
-    - os:  osx
-      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
-
-    - os:  osx
-      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
-
-
 script:
   # скрипт сборки и тестирования проекта:
   - mkdir build
@@ -55,5 +41,6 @@ script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ./prog -c a.bin 6 < ../test_data.txt; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ./prog -r a.bin; fi
   - cd ..
+  - ./linters/run.sh --local
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --enable=all --error-exitcode=1 -I include --suppress=missingIncludeSystem ./test ./src ./include/*.h --check-config ; fi
   

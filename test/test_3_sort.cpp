@@ -1,14 +1,14 @@
-#include "gtest/gtest.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 
+#include "gtest/gtest.h"
+
 TEST(Test_algorithm, comparison) {
-    
     std::ifstream t("got.txt");
     std::string got;
     std::string buff;
-    while(t) {
+    while (t) {
         getline(t, buff);
         got += buff;
     }
@@ -16,7 +16,7 @@ TEST(Test_algorithm, comparison) {
 
     std::ifstream t2("../../expected.txt");
     std::string expected;
-    while(t2) {
+    while (t2) {
         getline(t2, buff);
         expected += buff;
     }

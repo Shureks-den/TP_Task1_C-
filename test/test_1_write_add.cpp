@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include <iostream>
+#include "gtest/gtest.h"
 
 extern "C" {
     #include "form/file_creation.h"
@@ -8,7 +8,7 @@ extern "C" {
 
 TEST(File_test, create) {
     char filename[] = "test.bin";
-    ASSERT_EQ(write_to_database(filename,"-c", 3), 0);
+    ASSERT_EQ(write_to_database(filename, "-c", 3), 0);
 }
 
 TEST(File_test, add) {

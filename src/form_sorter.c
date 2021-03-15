@@ -28,13 +28,13 @@ main_list_t* initialise_main_list(form_t* element) {
         return NULL;
     }
 
-    main_list_t* current = (main_list_t*)malloc(sizeof(main_list_t));
+    main_list_t* current = malloc(sizeof(main_list_t));
     if (current == NULL) {
         return NULL;
     }
     current->next_list = NULL;
     current->head = NULL;
-    current->head = (form_list_t*)malloc(sizeof(form_list_t));
+    current->head = malloc(sizeof(form_list_t));
 
     if (current->head == NULL) {
         free(current);
@@ -74,10 +74,10 @@ form_list_t* insert_form(form_list_t* head, form_t* element) {
 }
 
 form_list_t* copy_data(form_list_t* pre_current, form_list_t* current, form_t* element) {
-    if(element == NULL) {  // current или pre_current могут быть NULL
+    if (element == NULL) {  // current или pre_current могут быть NULL
         return NULL;
     }
-    form_list_t* new_elem = (form_list_t*)malloc(sizeof(form_list_t));
+    form_list_t* new_elem = malloc(sizeof(form_list_t));
 
     if (pre_current != NULL) {
         pre_current->next = new_elem;
