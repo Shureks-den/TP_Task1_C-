@@ -1,5 +1,5 @@
  
-dist:     bionic
+dist:     bionic    # используем Ubuntu 14.04 Trusty Tahr (а не 12.02 Precise Pangolin)
 sudo:     required  # используем Virtual Machine (а не Docker container)
 
 language: c      
@@ -17,7 +17,6 @@ compiler:
 addons:
   apt:
     packages:
-      - lcov
       - valgrind
       - cppcheck
       - make
@@ -36,17 +35,4 @@ script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ./prog -r a.bin; fi
   - cd ..
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --enable=all --error-exitcode=1 -I include ./test ./src ./include/*.h --check-config ; fi
-  
-  after_success:
-  # Create lcov report
-  # capture coverage info
-  - lcov --directory . --capture --output-file coverage.info
-  # filter out system and extra files.
-  # To also not include test code in coverage add them with full path to the patterns: '*/tests/*'
-  - lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info
-  # output coverage data for debugging (optional)
-  - lcov --list coverage.info
-  # Uploading to CodeCov
-  # '-f' specifies file(s) to use and disables manual coverage gathering and file search which has already been done above
-  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
   
