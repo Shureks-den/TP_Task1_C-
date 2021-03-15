@@ -16,6 +16,10 @@ TEST(Test_structure, wrong_file_read) {
     ASSERT_EQ(write_to_database(filename, "-a", 3), SCANF_ERROR);
 }
 
+TEST(Test_print, null_head) {
+    main_list_t* head = nullptr;
+    ASSERT_EQ(print_form_structure(head), PRINT_ERROR);
+}
 
 TEST(Test_structure, file_read) {
     main_list_t* head = nullptr;

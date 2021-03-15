@@ -10,7 +10,8 @@ enum error_list {
     FAILED_MEMORY_CLEAR = 4,
     WRONG_NUM_OF_ARG = 5,
     SCANF_ERROR = 6,
-    FREAD_ERROR = 7
+    FREAD_ERROR = 7,
+    PRINT_ERROR = 8,
 };
 
 typedef struct form {

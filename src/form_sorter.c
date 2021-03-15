@@ -95,13 +95,16 @@ form_list_t* copy_data(form_list_t* pre_current, form_list_t* current, form_t* e
 }
 
 int print_form_structure(main_list_t* head) {
+    if (head == NULL) {
+        return PRINT_ERROR;
+    }
     main_list_t* q = head;
     printf("----------------------\n");
     while (q != NULL) {
         form_list_t* p = q->head;
         while (p != NULL) {
             if (print_info(*p) < 0) {
-                return -1;
+                return PRINT_ERROR;
             }
             p = p->next;
         }
