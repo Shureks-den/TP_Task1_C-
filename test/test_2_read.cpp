@@ -29,8 +29,11 @@ TEST(Test_add, null_element) {
 
 TEST(Test_structure, empty_file_read) {
     main_list_t* head = nullptr;
-    char filename[] = "nottest.bin";
-    head = read_from_database(filename);
+    char filename1[] = "notest.bin";
+    head = read_from_database(filename1);
+    ASSERT_EQ(head, nullptr);
+    char filename2[] = "nottest.bin";
+    head = read_from_database(filename2);
     ASSERT_EQ(head, nullptr);
 }
 
