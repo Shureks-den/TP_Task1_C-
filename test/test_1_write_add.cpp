@@ -15,4 +15,3 @@ TEST(File_test, add) {
     char filename[] = "test.bin";
     ASSERT_EQ(write_to_database(filename, "-a", 3), 0);
 }
-
