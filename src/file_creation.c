@@ -19,6 +19,9 @@ int write_to_database(const char filename[], const char action[], const size_t n
     form_t* info = calloc(1, sizeof(form_t));
     if (info == NULL) {
         puts("Memory error");
+        if (fclose(database)) {
+            return FAILED_FILE_CLOSING;
+        }
         return(FAILED_MEMORY_ALLOCATION);
     }
 
@@ -26,6 +29,10 @@ int write_to_database(const char filename[], const char action[], const size_t n
     while (i < num) {
         if (fscanf(stdin, "%10lu%30s%30s", &info->num, info->place, info->responsible) < 0) {
             puts("Error getting full data");
+            free(info);
+            if (fclose(database)) {
+                return FAILED_FILE_CLOSING;
+            }
             return(SCANF_ERROR);
         }
         if (strlen(info->place) && strlen(info->responsible)) {  //  неправильные (неполные данные) не запишутся
@@ -58,11 +65,13 @@ main_list_t* read_from_database(const char filename[]) {
     form_t* get_data = malloc(sizeof(form_t));
     if (get_data == NULL) {
         puts("Memory error");
+        fclose(database);
         return NULL;
     }
 
     if (fread(get_data, sizeof(form_t), 1, database) == 0) {
         puts("FILE IS EMPTY");
+        fclose(database);
         return NULL;
     }
 
