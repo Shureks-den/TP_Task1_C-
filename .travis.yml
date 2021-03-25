@@ -1,0 +1,37 @@
+ 
+dist:     trusty
+sudo:     required  # используем Virtual Machine (а не Docker container)
+
+language: c      
+
+os:
+  - linux
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    packages:
+      - lcov
+      - valgrind
+      - cppcheck
+      - make
+      - cmake
+
+script:
+  # скрипт сборки и тестирования проекта:
+  - ./linters/run.sh --local
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - ctest < ../test_data.txt --output-on-failure
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ctest < ../test_data.txt ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ./prog -c a.bin 6 < ../test_data.txt; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then valgrind --tool=memcheck --leak-check=yes ./prog -r a.bin; fi
+  - cd ..
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cppcheck --enable=all --error-exitcode=1 -I include ./test ./src ./include/*.h --check-config ; fi
+  
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
